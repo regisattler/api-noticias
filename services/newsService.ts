@@ -1,24 +1,24 @@
 import NewsRepository from '../repository/newsRepository';
 
-class NewsService{
+class NewsService {
 
-    get(){
-      return NewsRepository.find({});
+    get() {
+        return NewsRepository.find({});
     }
 
-    getById(_id){
+    getById(_id) {
         return NewsRepository.findById(_id);
     }
 
-    create(news){
+    create(news) {
         return NewsRepository.create(news);
     }
 
-    update(_id, news){
+    update(_id, news) {
         return NewsRepository.findByIdAndUpdate(_id, news);
     }
 
-    delete(_id){
+    delete(_id) {
         return NewsRepository.findOneAndRemove(_id);
     }
 
