@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dataBase_1 = require("./infra/dataBase");
 const newsController_1 = require("./controller/newsController");
+const auth_1 = require("./infra/auth");
 class StartUp {
     constructor() {
         this.app = express();
@@ -15,7 +16,7 @@ class StartUp {
     }
     enableCors() {
         const options = {
-            methods: "GET, OPTIONS, PUT,POST,DELETE",
+            methods: "GET,OPTIONS,PUT,POST,DELETE",
             origin: "*"
         };
         this.app.use(cors(options));
@@ -29,6 +30,7 @@ class StartUp {
         this.app.route("/").get((req, res) => {
             res.send({ versao: "0.0.1" });
         });
+        this.app.use(auth_1.default.validate);
         //new
         this.app.route("/api/v1/news").get(newsController_1.default.get);
         this.app.route("/api/v1/news/:id").get(newsController_1.default.getById);
