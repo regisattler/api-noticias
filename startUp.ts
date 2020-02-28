@@ -6,6 +6,8 @@ import Database from "./infra/dataBase";
 import NewsController from "./controller/newsController";
 import Auth from "./infra/auth";
 
+import uploads from "./infra/uploads";
+
 class StartUp {
   public app: express.Application;
   private _db: Database;
@@ -41,6 +43,14 @@ class StartUp {
 
     this.app.route("/").get((req, res) => {
       res.send({ versao: "0.0.1" });
+    });
+
+    this.app.route("/uploads").post(uploads.single("file"), (req, res) => {
+      try {
+        res.send("Arquivo enviado com sucesso");
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     this.app.use(Auth.validate);
